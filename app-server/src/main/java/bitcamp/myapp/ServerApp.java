@@ -1,26 +1,47 @@
 package bitcamp.myapp;
 
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class ServerApp {
 
 
 
-    public static void main(String[] args) {
-        System.out.println("serverApp");
+        public static void main(String[] args) throws IOException {
+            System.out.println("서버 실행!");
 
-    }
+            Scanner keyScan = new Scanner(System.in);
 
+            ServerSocket serverSocket = new ServerSocket(8888);
+            Socket socket = serverSocket.accept();
 
+            PrintStream out = new PrintStream(socket.getOutputStream());
+            Scanner in = new Scanner(socket.getInputStream());
 
-    void execute() {
+            while (true) {
+                // 클라이언트가 보낸 문자열을 수신한다.
+                String str = in.nextLine();
+                System.out.println(str);
 
+                // 키보드 입력을 받아서 클라이언트로 송신한다.
+                System.out.print("입력> ");
+                String input = keyScan.nextLine();
+                out.println(input);
 
+                if (str.equals("quit")) {
+                    break;
+                }
+            }
+
+            in.close();
+            out.close();
+            socket.close();
+            serverSocket.close();
+            keyScan.close();
     }
 }
