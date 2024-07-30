@@ -1,0 +1,20 @@
+
+É
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ˆ˜˜»ıÿÿÿÿ8¢î—•2J$30f80170-ecf6-4e0d-aa3d-596141c7b921
+{
+java:S1128"3Remove this unused import 'bitcamp.menu.MenuGroup'.(Œ¹Ù€ÿÿÿÿÿ8¢î—•2J$4965f51e-05ab-4e88-b973-38573b875a94
+z
+java:S1128"2Remove this unused import 'bitcamp.menu.MenuItem'.(“Ø¦•üÿÿÿÿ8¢î—•2J$0eef32d6-bf74-4358-9d57-293d4e2c37aa
+z
+java:S1128"7Remove this unused import 'bitcamp.myapp.dao.BoardDao'.(ş”ìƒ8¢î—•2J$f3bcf581-509d-48ba-becb-2c0fad004631
+|
+java:S1128"9Remove this unused import 'bitcamp.myapp.dao.ProjectDao'.(º»¸8¢î—•2J$c2d798f9-85d5-4ff6-bcc0-c3cd8d45dee4
+y
+java:S1128	"6Remove this unused import 'bitcamp.myapp.dao.UserDao'.(†¹ë“8¢î—•2J$e4fd8f9f-8d9d-4373-9030-100bcec86e17
+ƒ
+java:S1128
+"@Remove this unused import 'bitcamp.myapp.dao.stub.BoardDaoStub'.(æòÉ8¢î—•2J$c6bc7c76-9d57-4ed6-b3fd-adc0f29454b3
+Š
+java:S1128"BRemove this unused import 'bitcamp.myapp.dao.stub.ProjectDaoStub'.(à´ÑÃşÿÿÿÿ8¢î—•2J$91ce0516-2769-4c13-96b6-c90684dbc96e
+‡
+java:S1128"?Remove this unused import 'bitcamp.myapp.dao.stub.UserDaoStub'.(ÅŸú±øÿÿÿÿ8£î—•2J$061a4870-dd85-4494-95bc-798b029a1274
