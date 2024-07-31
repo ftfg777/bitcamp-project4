@@ -28,8 +28,8 @@ public class RouletteCommand {
     ////////////////////// Constructor ////////////////////////
     ///////////////////////////////////////////////////////////
     RouletteCommand(){
-        this.turn = INIT_SIZE;
-        this.target = setTarget();   // 1~...size
+        setTurn(INIT_SIZE);
+        setTarget();   // 1~...size
     }
 
 
@@ -135,7 +135,7 @@ public class RouletteCommand {
             return true;
         }
 
-        turn--;
+        setTurn(--turn);
         return false;
     }
 
@@ -155,9 +155,9 @@ public class RouletteCommand {
         this.turn = turn;
     }
 
-    private int setTarget(){
+    private void setTarget(){
         Random random = new Random();
-        return random.nextInt(INIT_SIZE); //0~...(INIT_SIZE-1)
+        this.target = random.nextInt(INIT_SIZE); //0~...(INIT_SIZE-1)
     }
 
     public int getTarget(){
