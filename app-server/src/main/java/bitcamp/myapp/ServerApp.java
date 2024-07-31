@@ -1,5 +1,6 @@
 package bitcamp.myapp;
 
+import bitcamp.command.RouletteCommand;
 import bitcamp.vo.ClientHandler;
 
 import java.io.*;

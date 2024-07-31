@@ -16,7 +16,7 @@ public class RouletteCommand {
      *********************************************************************/
 
     //총 턴 횟수
-    private final int INIT_SIZE = 5;
+    private final int INIT_SIZE = 2;
 
     //현재 턴( (INIT_SIZE-1)~...0 )
     private int turn;
@@ -27,7 +27,7 @@ public class RouletteCommand {
     ///////////////////////////////////////////////////////////
     ////////////////////// Constructor ////////////////////////
     ///////////////////////////////////////////////////////////
-    RouletteCommand(){
+    public RouletteCommand(){
         setTurn(INIT_SIZE);
         setTarget();   // 1~...size
     }
@@ -45,15 +45,11 @@ public class RouletteCommand {
         return getResult();
     }
 
-    public void printRoulette(){
-        System.out.print(printShots());
-    }
-
-    private StringBuffer printShots(){
+    private void printRoulette(){
         StringBuffer str = new StringBuffer("");
 
-        StringBuffer[] gun = printGun();
-        StringBuffer[] shot = printOneShot();
+        String[] gun = printGun();
+        String[] shot = printOneShot();
 
         //set TUI
         for(int sbNum = 0; sbNum<gun.length ; sbNum++){
@@ -66,60 +62,61 @@ public class RouletteCommand {
                 // ANSI 이스케이프 시퀀스 적용 위치           //
                 //////////////////////////////////////////////
                 //unused shot
-                if(shotNum<=turn){
-                    str.append(shot[sbNum]);
-                }
-                //used shot
-                else{
-                    str.append(shot[sbNum]);
-                }
+//                if(shotNum<=turn){
+//                    str.append(shot[sbNum]);
+//                }
+//                //used shot
+//                else{
+//                    str.append(shot[sbNum]);
+//                }
                 //////////////////////////////////////////////
                 //////////////////////////////////////////////
 
             }
             //one line end
             str.append("\n");
+            System.out.print(str);
+            str.setLength(0);
         }
+    }
+
+    private String[] printGun(){
+        String[] str=new String[14];
+
+
+        str[0] = ( "          (_/-------------_______________________)\t");
+        str[1] = ( "          `|  /~~~~~~~~~~\\                       |\t");
+        str[2] = ( "           ;  |--------(-||______________________|\t");
+        str[3] = ( "           ;  |--------(-| ____________|\t\t\t");
+        str[4] = ( "           ;  \\__________/'\t\t\t\t\t\t\t");
+        str[5] = ( "         _/__         ___;\t\t\t\t\t\t\t");
+        str[6] = ( "      ,~~    |  __--~~\t\t\t\t\t\t\t\t");
+        str[7] = ( "     '        ~~| (  |\t\t\t\t\t\t\t\t");
+        str[8] = ( "    '      '~~  `____'\t\t\t\t\t\t\t\t");
+        str[9] = ( "   '      '\t\t\t\t\t\t\t\t\t\t\t");
+        str[10]= ("  '      `\t\t\t\t\t\t\t\t\t\t\t");
+        str[11]= (" '       `\t\t\t\t\t\t\t\t\t\t\t");
+        str[12]= ("'--------`\t\t\t\t\t\t\t\t\t\t\t");
 
         return str;
     }
 
-    private StringBuffer[] printGun(){
-        StringBuffer[] str=new StringBuffer[14];
+    private String[] printOneShot(){
+        String[] str= new String[14];
 
-        str[0].append( "          (_/-------------_______________________)\t");
-        str[1].append( "          `|  /~~~~~~~~~~\\                       |\t");
-        str[2].append( "           ;  |--------(-||______________________|\t");
-        str[3].append( "           ;  |--------(-| ____________|\t\t\t");
-        str[4].append( "           ;  \\__________/'\t\t\t\t\t\t\t");
-        str[5].append( "         _/__         ___;\t\t\t\t\t\t\t");
-        str[6].append( "      ,~~    |  __--~~\t\t\t\t\t\t\t\t");
-        str[7].append( "     '        ~~| (  |\t\t\t\t\t\t\t\t");
-        str[8].append( "    '      '~~  `____'\t\t\t\t\t\t\t\t");
-        str[9].append( "   '      '\t\t\t\t\t\t\t\t\t\t\t");
-        str[10].append("  '      `\t\t\t\t\t\t\t\t\t\t\t");
-        str[11].append(" '       `\t\t\t\t\t\t\t\t\t\t\t");
-        str[12].append("'--------`\t\t\t\t\t\t\t\t\t\t\t");
-
-        return str;
-    }
-
-    private StringBuffer[] printOneShot(){
-        StringBuffer[] str= new StringBuffer[14];
-
-        str[0].append( "⠀⠀⠀⢠⠔⠢⡄\t\t");
-        str[1].append( "⠀⠀⡰⠁⠀⠀⠈⢆\t\t");
-        str[2].append( "⠀⢰⠁⠀⠀⠀⠀⠈⡆\t\t");
-        str[3].append( "⠀⡇⠀⠀⠀⠀⠀⠀⢸\t\t");
-        str[4].append( "⢰⠓⠒⠒⠒⠒⠒⠚⡆\t");
-        str[5].append( "⢸⠀⠀⠀⠀⠀⠀⠀⠀⡇\t");
-        str[6].append( "⢸⠀⠀⠀⠀⠀⠀⠀⠀⡇\t");
-        str[7].append( "⢸⠀⠀⠀⠀⠀⠀⠀⠀⡇\t");
-        str[8].append( "⢸⠀⠀⠀⠀⠀⠀⠀⠀⡇\t");
-        str[9].append( "⢸⠀⠀⠀⠀⠀⠀⠀⠀⡇\t");
-        str[10].append("⢸⠀⠀⠀⠀⠀⠀⠀⠀⡇\t");
-        str[11].append("⢨⣏⣉⣉⣉⣉⣉⣽⡅\t");
-        str[12].append("⢸⣀⣀⣀⣀⣀⣀⣀⡇\t");
+        str[0] = ( "⠀⠀⠀⢠⠔⠢⡄\t\t");
+        str[1] = ( "⠀⠀⡰⠁⠀⠀⠈⢆\t\t");
+        str[2] = ( "⠀⢰⠁⠀⠀⠀⠀⠈⡆\t\t");
+        str[3] = ( "⠀⡇⠀⠀⠀⠀⠀⠀⢸\t\t");
+        str[4] = ( "⢰⠓⠒⠒⠒⠒⠒⠚⡆\t");
+        str[5] = ( "⢸⠀⠀⠀⠀⠀⠀⠀⠀⡇\t");
+        str[6] = ( "⢸⠀⠀⠀⠀⠀⠀⠀⠀⡇\t");
+        str[7] = ( "⢸⠀⠀⠀⠀⠀⠀⠀⠀⡇\t");
+        str[8] = ( "⢸⠀⠀⠀⠀⠀⠀⠀⠀⡇\t");
+        str[9] = ( "⢸⠀⠀⠀⠀⠀⠀⠀⠀⡇\t");
+        str[10]= ("⢸⠀⠀⠀⠀⠀⠀⠀⠀⡇\t");
+        str[11]= ("⢨⣏⣉⣉⣉⣉⣉⣽⡅\t");
+        str[12]= ("⢸⣀⣀⣀⣀⣀⣀⣀⡇\t");
 
         return str;
     }
