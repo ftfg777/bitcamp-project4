@@ -13,7 +13,7 @@ public class ClientApp {
 
             Scanner keyScan = new Scanner(System.in);
 
-            Socket socket = new Socket("192.168.0.30", 8888);
+            Socket socket = new Socket("127.0.0.1", 8888);
 
             PrintStream out = new PrintStream(socket.getOutputStream());
             Scanner in = new Scanner(socket.getInputStream());
