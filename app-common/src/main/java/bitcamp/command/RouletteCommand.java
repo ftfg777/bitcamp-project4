@@ -16,7 +16,7 @@ public class RouletteCommand {
      *********************************************************************/
 
     //총 턴 횟수
-    private final int INIT_SIZE = 2;
+    private final int INIT_SIZE = 5;
 
     //현재 턴( (INIT_SIZE-1)~...0 )
     private int turn;
@@ -57,18 +57,18 @@ public class RouletteCommand {
             str.append(gun[sbNum]);
 
             //ont line shots
-            for(int shotNum =0; shotNum<INIT_SIZE; shotNum--) {
+            for(int shotNum =0; shotNum<INIT_SIZE; shotNum++) {
                 //////////////////////////////////////////////
                 // ANSI 이스케이프 시퀀스 적용 위치           //
                 //////////////////////////////////////////////
                 //unused shot
-//                if(shotNum<=turn){
-//                    str.append(shot[sbNum]);
-//                }
-//                //used shot
-//                else{
-//                    str.append(shot[sbNum]);
-//                }
+                if(shotNum<=turn){
+                    str.append(shot[sbNum]);
+                }
+                //used shot
+                else{
+                    str.append(shot[sbNum]);
+                }
                 //////////////////////////////////////////////
                 //////////////////////////////////////////////
 
@@ -106,17 +106,17 @@ public class RouletteCommand {
 
         str[0] = ( "⠀⠀⠀⢠⠔⠢⡄\t\t");
         str[1] = ( "⠀⠀⡰⠁⠀⠀⠈⢆\t\t");
-        str[2] = ( "⠀⢰⠁⠀⠀⠀⠀⠈⡆\t\t");
-        str[3] = ( "⠀⡇⠀⠀⠀⠀⠀⠀⢸\t\t");
+        str[2] = ( "⠀⢰⠁⠀⠀⠀⠀⠈⡆\t");
+        str[3] = ( "⠀⡇⠀⠀⠀⠀⠀⠀⢸ \t");
         str[4] = ( "⢰⠓⠒⠒⠒⠒⠒⠚⡆\t");
         str[5] = ( "⢸⠀⠀⠀⠀⠀⠀⠀⠀⡇\t");
         str[6] = ( "⢸⠀⠀⠀⠀⠀⠀⠀⠀⡇\t");
         str[7] = ( "⢸⠀⠀⠀⠀⠀⠀⠀⠀⡇\t");
         str[8] = ( "⢸⠀⠀⠀⠀⠀⠀⠀⠀⡇\t");
         str[9] = ( "⢸⠀⠀⠀⠀⠀⠀⠀⠀⡇\t");
-        str[10]= ("⢸⠀⠀⠀⠀⠀⠀⠀⠀⡇\t");
-        str[11]= ("⢨⣏⣉⣉⣉⣉⣉⣽⡅\t");
-        str[12]= ("⢸⣀⣀⣀⣀⣀⣀⣀⡇\t");
+        str[10]= ( "⢸⠀⠀⠀⠀⠀⠀⠀⠀⡇\t");
+        str[11]= ( "⢨⣏⣉⣉⣉⣉⣉⣽⡅\t");
+        str[12]= ( "⢸⣀⣀⣀⣀⣀⣀⣀⡇\t");
 
         return str;
     }

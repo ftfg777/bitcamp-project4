@@ -18,6 +18,9 @@ public class ServerApp {
     private CopyOnWriteArrayList<ClientHandler> clients = new CopyOnWriteArrayList<>(); //현재 연결된 클라이언트의 정보를 저장하는 리스트
 
     public static void main(String[] args) {
+        RouletteCommand rouletteCommand = new RouletteCommand();
+        rouletteCommand.excute();
+
         ServerApp server = new ServerApp();
         server.execute();
     }
