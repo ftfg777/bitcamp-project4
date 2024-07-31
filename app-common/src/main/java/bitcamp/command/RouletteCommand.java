@@ -81,7 +81,7 @@ public class RouletteCommand {
     }
 
     private String[] printGun(){
-        String[] str=new String[14];
+        String[] str=new String[13];
 
 
         str[0] = ( "          (_/-------------_______________________)\t");
@@ -102,7 +102,7 @@ public class RouletteCommand {
     }
 
     private String[] printOneShot(){
-        String[] str= new String[14];
+        String[] str= new String[13];
 
         str[0] = ( "⠀⠀⠀⢠⠔⠢⡄\t\t");
         str[1] = ( "⠀⠀⡰⠁⠀⠀⠈⢆\t\t");
