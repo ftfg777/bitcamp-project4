@@ -42,10 +42,10 @@ public class ServerApp {
             }
 
             // 모든 클라이언트가 연결되면 게임 시작 메시지를 전송
-            if (clients.size() == MAX_PLAYERS) {
-                startGame();
-            }
+            while (clients.get(1).getNickname()==null) {
 
+            }
+            startGame();
             // 계속 실행 상태 유지
             while (true) {
                 // 게임 중 추가적인 서버 작업이 있을 경우 여기에 추가

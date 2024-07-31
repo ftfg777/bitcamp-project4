@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import static java.lang.System.load;
+
 public class ClientHandler extends Thread{
 
     CopyOnWriteArrayList<ClientHandler> clients;
@@ -34,11 +36,11 @@ public class ClientHandler extends Thread{
             // 닉네임 요청 및 수신
             out.print("닉네임을 입력해 주세요: ");
             nickname = in.nextLine();
-/*
-            if (clients.size() == 2) {
-                startGame();
+
+            while (clients.get(1).getNickname() == null) {
+
             }
-            */
+            startGame();
 
             while (true) {
                 // 클라이언트가 보낸 문자열을 수신한다.

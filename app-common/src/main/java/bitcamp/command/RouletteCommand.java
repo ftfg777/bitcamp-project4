@@ -45,7 +45,7 @@ public class RouletteCommand {
         return getResult();
     }
 
-    private void printRoulette(){
+    public void printRoulette(){
         StringBuffer str = new StringBuffer("");
 
         String[] gun = printGun();

@@ -1,5 +1,6 @@
 package bitcamp.myapp;
 
+import bitcamp.command.RouletteCommand;
 import bitcamp.util.Prompt;
 
 import java.io.IOException;
@@ -35,13 +36,16 @@ public class ClientApp {
             String startMessage = in.nextLine();
             System.out.println(startMessage);
 
+
+            RouletteCommand rouletteCommand = new RouletteCommand();
+            rouletteCommand.printRoulette();
             while (true) {
                 String command = Prompt.input("번호를 입력해 주세용 : ");
                 if (command.equals("quit")) {
                     out.println("quit");
                     break;
                 }
-                out.println(command);
+//                out.println(command);
 
                 // 서버가 보낸 데이터를 수신한다.
                 String str = in.nextLine();
