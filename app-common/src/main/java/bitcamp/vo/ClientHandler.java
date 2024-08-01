@@ -1,35 +1,43 @@
 package bitcamp.vo;
 
+import bitcamp.command.RouletteCommand;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.CopyOnWriteArrayList;
-
-import static java.lang.System.load;
 
 public class ClientHandler extends Thread{
 
     CopyOnWriteArrayList<ClientHandler> clients;
     private static final Object lock = new Object(); //
     private ClientHandler currentTurnClient = null; // 현재 턴을 가진 클라이언트/ 동기화 객체
+    private final RouletteCommand rouletteCommand;
 
 
     private Socket socket;
     private int playerNumber;
     private String nickname;
+    private boolean death = false;
     private boolean turn;
     private PrintStream out;
     private Scanner in;
 
-    public ClientHandler(Socket socket, int playerNumber, CopyOnWriteArrayList<ClientHandler> list) {
+    public ClientHandler(Socket socket, int playerNumber, CopyOnWriteArrayList<ClientHandler> list, RouletteCommand rouletteCommand) {
         this.socket = socket;
         this.playerNumber = playerNumber;
         clients = list;
+        this.rouletteCommand = rouletteCommand;
+
     }
 
     @Override
     public void run() {
+
         try {
             out = new PrintStream(socket.getOutputStream());
             in = new Scanner(socket.getInputStream());
@@ -80,12 +88,11 @@ public class ClientHandler extends Thread{
 
     }
 
-    private void startGame()
-    {
+    private void startGame() {
         while (true) {
-            for (ClientHandler client : clients) {
+                for (ClientHandler client : clients) {
                     new Thread(() -> handleInput(client)).start();
-            }
+                }
         }
     }
 
@@ -94,7 +101,8 @@ public class ClientHandler extends Thread{
             while (true) {
                 synchronized (lock) {
                     if (client.turn) {
-                        client.sendMessage("게임 시작! 당신이 차례입니다 입력을 시작하세요. 1번 : 자기자신 쏘기 | 2번 : 상대 쏘기");
+                        System.out.println(rouletteCommand.getTurn() + "=========================");
+                        client.sendMessage("당신의 차례입니다 입력을 시작하세요. 1번 : 자기자신 쏘기 | 2번 : 상대 쏘기");
                         client.sendMessage("차례입니다");
                         String message = client.in.nextLine();
                         int no = Integer.parseInt(message);
@@ -108,6 +116,8 @@ public class ClientHandler extends Thread{
                             resultMessage = "없는 번호다 모자란 친구야";
                         }
 
+                            rouletteCommand.excute();
+
                         broadcastMessage(client.nickname + ": " + resultMessage);
 
                         for (ClientHandler c : clients) {
@@ -118,10 +128,13 @@ public class ClientHandler extends Thread{
                                 c.turn = true;
                             }
                         }
+
                         lock.notifyAll(); // 모든 대기 스레드에 알림
                         break; // 종료
+
                     } else {
                         client.sendMessage("게임 시작! 상대의 턴 입니다 기다리세요");
+
                         lock.wait();// 자신의 턴이 아닐 때 대기
                     }
                 }
@@ -137,4 +150,20 @@ public class ClientHandler extends Thread{
             client.sendMessage(message);
         }
     }
+
+    private void resultMessage() {
+        for (ClientHandler client : clients) {
+            if (client.isDeath()){
+                client.sendMessage(client.nickname +"가 패배했습니다.");
+            }else{
+                client.sendMessage(client.nickname +"가 승리했습니다.");
+            }
+        }
+    }
+
+
+    private boolean isDeath(){
+        return this.death;
+    }
+
 }
