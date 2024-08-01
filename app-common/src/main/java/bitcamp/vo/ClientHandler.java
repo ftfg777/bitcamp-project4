@@ -17,6 +17,7 @@ public class ClientHandler extends Thread{
     private static final Object lock = new Object(); //
     private ClientHandler currentTurnClient = null; // 현재 턴을 가진 클라이언트/ 동기화 객체
     private final RouletteCommand rouletteCommand;
+    private volatile boolean flag = false;  // Volatile 키워드 추가
 
 
     private Socket socket;
@@ -81,15 +82,11 @@ public class ClientHandler extends Thread{
     private void printStart() {
             String player1 = clients.get(0).getNickname();
             String player2 = clients.get(1).getNickname();
-            for (ClientHandler client : clients) {
-                client.sendMessage("게임 시작! " + player1 + "와 " + player2 + "가 진행합니다.");
-                break;
-            }
-
+            broadcastMessage("게임 시작! " + player1 + "와 " + player2 + "가 진행합니다. ^^");
     }
 
     private void startGame() {
-        while (true) {
+        while (!flag) {
                 for (ClientHandler client : clients) {
                     new Thread(() -> handleInput(client)).start();
                 }
@@ -100,6 +97,11 @@ public class ClientHandler extends Thread{
         try {
             while (true) {
                 synchronized (lock) {
+                    if (flag) {
+                        // flag가 true일 때 루프 종료
+                        break;
+                    }
+
                     if (client.turn) {
                         System.out.println(rouletteCommand.getTurn() + "=========================");
                         client.sendMessage("당신의 차례입니다 입력을 시작하세요. 1번 : 자기자신 쏘기 | 2번 : 상대 쏘기");
@@ -116,18 +118,18 @@ public class ClientHandler extends Thread{
                             resultMessage = "없는 번호다 모자란 친구야";
                         }
 
-                            rouletteCommand.excute();
+                        broadcastMessage(client.nickname + "(이)가 " + resultMessage);
+                        flag = rouletteCommand.excute();
 
-                        broadcastMessage(client.nickname + ": " + resultMessage);
-
-                        for (ClientHandler c : clients) {
-                            if (c.turn) {
-                                c.turn = false;
-                            }else
-                            {
-                                c.turn = true;
-                            }
+                        if (flag) {
+                            broadcastMessage("게임 종료");
+                            lock.notifyAll(); // 대기중인 모든 스레드 알림
+                            break;
                         }
+                            // 턴 전환
+                            for (ClientHandler c : clients) {
+                                c.turn = !c.turn;
+                            }
 
                         lock.notifyAll(); // 모든 대기 스레드에 알림
                         break; // 종료

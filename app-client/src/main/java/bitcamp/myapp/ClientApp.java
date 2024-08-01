@@ -46,6 +46,11 @@ public class ClientApp {
                     String gameMessage = in.nextLine();
                     System.out.println(gameMessage);
 
+                    // 서버가 게임 종료 메시지를 보내면 루프 종료
+                    if (gameMessage.contains("게임 종료")) {
+                        break;
+                    }
+
                     // 서버가 차례를 기다리라는 메시지를 보내면
                     if (gameMessage.contains("차례입니다")) {
                         // 자신의 차례가 되었을 때 입력을 받음
@@ -61,12 +66,6 @@ public class ClientApp {
                     {
                         gameMessage = in.nextLine();
                         System.out.println(gameMessage);
-                    }
-
-
-                    // 서버가 게임 종료 메시지를 보내면 루프 종료
-                    if (gameMessage.contains("게임 종료")) {
-                        break;
                     }
                 } else {
                     // 데이터가 없을 경우 처리
