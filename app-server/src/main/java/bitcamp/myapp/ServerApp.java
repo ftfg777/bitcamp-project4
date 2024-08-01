@@ -25,10 +25,11 @@ public class ServerApp {
 
     void execute()
     {
+        ServerSocket serverSocket = null;
         try {
             System.out.println("서버 실행!");
 
-            ServerSocket serverSocket = new ServerSocket(8888);
+            serverSocket = new ServerSocket(8888);
 
             while (clients.size() < MAX_PLAYERS) {
                 Socket socket = serverSocket.accept();

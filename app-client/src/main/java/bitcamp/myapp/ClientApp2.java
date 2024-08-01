@@ -41,12 +41,14 @@ public class ClientApp2 {
 
             // 게임 진행
             while (true) {
+                // 서버에서 메시지를 수신할 때까지 대기
                 if (in.hasNextLine()) {
                     String gameMessage = in.nextLine();
                     System.out.println(gameMessage);
 
                     // 서버가 게임 종료 메시지를 보내면 루프 종료
                     if (gameMessage.contains("게임 종료")) {
+                        System.out.println("게임이 종료되었습니다.");
                         break;
                     }
 
@@ -61,12 +63,7 @@ public class ClientApp2 {
                             String serverResponse = in.nextLine();
                             System.out.println(serverResponse);
                         }
-                    }else
-                    {
-                        gameMessage = in.nextLine();
-                        System.out.println(gameMessage);
                     }
-
                 } else {
                     // 데이터가 없을 경우 처리
                     System.out.println("서버로부터 더 이상의 데이터가 없습니다.");
