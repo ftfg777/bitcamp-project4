@@ -39,8 +39,7 @@ public class ServerApp {
                 handler.start();
             }
 
-        }catch (Exception e)
-        {
+        }catch (Exception e) {
             System.out.println("서버 실행중 오류");
             e.printStackTrace();
         }

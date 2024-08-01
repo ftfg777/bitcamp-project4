@@ -1,0 +1,14 @@
+
+z	java:S135-"YReduce the total number of break and continue statements in this loop to use at most one.(˜ïˆÿÿÿÿÿ8˜ÛÍë2
+f
+java:S2095"DUse try-with-resources or close this "Socket" in a "finally" clause.(‰‚Íªøÿÿÿÿ8˜ÛÍë2
+G	java:S106"+Replace this use of System.out by a logger.(ÃÙĞŒ8™ÛÍë2
+G	java:S106"+Replace this use of System.out by a logger.(Ÿ¡úª8™ÛÍë2
+G	java:S106%"+Replace this use of System.out by a logger.(¯£¼Î8™ÛÍë2
+G	java:S1061"+Replace this use of System.out by a logger.(‚ş¿Ä8™ÛÍë2
+L	java:S1065"+Replace this use of System.out by a logger.(¼¸Àÿÿÿÿÿ8™ÛÍë2
+G	java:S106B"+Replace this use of System.out by a logger.(èŸÚı8™ÛÍë2
+L	java:S106G"+Replace this use of System.out by a logger.(€ò•Çÿÿÿÿÿ8™ÛÍë2
+L	java:S106Q"+Replace this use of System.out by a logger.(½îÈşÿÿÿÿ8™ÛÍë2
+R
+java:S1128"0Remove this unused import 'java.io.IOException'.(ªº»Úıÿÿÿÿ8™ÛÍë2

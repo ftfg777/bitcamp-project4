@@ -1,23 +1,17 @@
 
-D
-java:S21895""Add an end condition to this loop.(˜ïˆÿÿÿÿÿ8®Û•æ2
 ’
-java:S2095!"JUse try-with-resources or close this "ServerSocket" in a "finally" clause.(•ÌÓ»ÿÿÿÿÿ8æì’æ2J$053c2b52-6a21-4807-8d06-c1404ce9f1e7
-ƒ	java:S125"<This block of commented-out lines of code should be removed.(úóÉöüÿÿÿÿ8çì’æ2J$37761c0f-8834-4077-b2b9-9083c5fae670
-r	java:S106"+Replace this use of System.out by a logger.(éŞşüÿÿÿÿ8çì’æ2J$b9b5fb0b-4fbb-4e69-881e-41c42b61acb4
-m	java:S106%"+Replace this use of System.out by a logger.(ˆíÚº8çì’æ2J$2f3c9a86-b1e3-4464-a5b9-54f5026c5b6c
-~	java:S1250"<This block of commented-out lines of code should be removed.(¿°ÔÀ8çì’æ2J$bd2abcb9-d47b-4195-95b7-c8c9734ac189
-]	java:S1257"<This block of commented-out lines of code should be removed.(¸»­øşÿÿÿÿ8¯Û•æ2
-r	java:S106?"+Replace this use of System.out by a logger.(ÚÄ©ºûÿÿÿÿ8çì’æ2J$356246e0-bb93-48f7-b60b-47599aa17252
-~	java:S125D"<This block of commented-out lines of code should be removed.(ƒÌ®8çì’æ2J$8cfda87a-a47b-4cc0-a9dc-3242952356a5
+java:S2095"JUse try-with-resources or close this "ServerSocket" in a "finally" clause.(•ÌÓ»ÿÿÿÿÿ8Ú°—ì2J$1a9a6172-3ec9-4b2d-91b8-ec8fa76c9579
+r	java:S106"+Replace this use of System.out by a logger.(éŞşüÿÿÿÿ8Ú°—ì2J$86afbf00-5b2f-4170-a4e2-6c6dfdfab3fa
+m	java:S106#"+Replace this use of System.out by a logger.(ˆíÚº8Ú°—ì2J$53200852-f240-427f-9f09-8fb71f8d7fb8
+r	java:S106+"+Replace this use of System.out by a logger.(ÚÄ©ºûÿÿÿÿ8Ú°—ì2J$4e99da58-a2cf-4ddb-8699-d424a6d017d5
 f
-java:S1128"$Remove this unused import 'java.io'.(¬›ãD8çì’æ2J$fc70a733-acb0-4893-bf01-dd8ddcc5cbdc
+java:S1128"$Remove this unused import 'java.io'.(¬›ãD8Ú°—ì2J$da335385-b0b4-4735-bc2d-260bd70b7cc2
 
-java:S1128"7Remove this unused import 'java.net.InetSocketAddress'.(·¬ğ¶ıÿÿÿÿ8çì’æ2J$008d43c1-417a-442d-b567-f8a874edc434
+java:S1128"7Remove this unused import 'java.net.InetSocketAddress'.(·¬ğ¶ıÿÿÿÿ8Û°—ì2J$534a42f9-3e8a-4c6c-bdba-d999400e6f18
 s
 java:S1128
-"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8çì’æ2J$83a1cb29-d3be-4c25-87bc-c4ba05fdccab
+"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8Û°—ì2J$c1c71f0b-25d1-48ac-8eff-e71492ffb2dc
 s
-java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8çì’æ2J$3559b3c4-4c9b-439a-9132-e8637803fac1
+java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8Û°—ì2J$297bee08-10ae-4a2c-89b0-572f0515868f
 v
-java:S1128".Remove this unused import 'java.util.Scanner'.(ÒÜÅ¸úÿÿÿÿ8çì’æ2J$9bbe4732-cca7-4763-92ae-896b753cd30c
+java:S1128".Remove this unused import 'java.util.Scanner'.(ÒÜÅ¸úÿÿÿÿ8Û°—ì2J$da26b2aa-0105-4287-9701-c997c91129a3

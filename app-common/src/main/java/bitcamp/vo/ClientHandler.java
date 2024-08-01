@@ -111,7 +111,6 @@ public class ClientHandler extends Thread{
                     }
 
                     if (client.turn) {
-                        System.out.println(rouletteCommand.getTurn() + "=========================");
                         client.sendMessage("당신의 차례입니다 입력을 시작하세요. 1번 : 자기자신 쏘기 | 2번 : 상대 쏘기");
                         client.sendMessage("차례입니다");
                         String message = client.in.nextLine();
@@ -127,13 +126,31 @@ public class ClientHandler extends Thread{
                         }
 
                         broadcastMessage(client.nickname + "(이)가 " + resultMessage);
+
                         flag = rouletteCommand.excute();
 
+                        broadcastMessage(rouletteCommand.getTurn() + "발 남았습니다.");
+
                         if (flag) {
+                            // 자신한테 쏨
+                            if (no == 1) {
+                                client.death = true;
+                            }
+                            // 상대한테 쏨
+                            if (no == 2) {
+                                for (ClientHandler client2 : clients) {
+                                    if (!client.getNickname().equals(client2.getNickname())) {
+                                        client2.death = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            resultMessage();
                             broadcastMessage("게임 종료");
                             lock.notifyAll(); // 대기중인 모든 스레드 알림
                             break;
                         }
+
                             // 턴 전환
                             for (ClientHandler c : clients) {
                                 c.turn = !c.turn;
@@ -162,9 +179,13 @@ public class ClientHandler extends Thread{
     private void resultMessage() {
         for (ClientHandler client : clients) {
             if (client.isDeath()){
+                client.sendMessage("=================================");
                 client.sendMessage(client.nickname +"가 패배했습니다.");
+                client.sendMessage("=================================");
             }else{
+                client.sendMessage("=================================");
                 client.sendMessage(client.nickname +"가 승리했습니다.");
+                client.sendMessage("=================================");
             }
         }
     }
