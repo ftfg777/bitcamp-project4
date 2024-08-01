@@ -1,17 +1,17 @@
 
-’
-java:S2095"JUse try-with-resources or close this "ServerSocket" in a "finally" clause.(•ÌÓ»ÿÿÿÿÿ8Ú°—ì2J$1a9a6172-3ec9-4b2d-91b8-ec8fa76c9579
-r	java:S106"+Replace this use of System.out by a logger.(éŞşüÿÿÿÿ8Ú°—ì2J$86afbf00-5b2f-4170-a4e2-6c6dfdfab3fa
-m	java:S106#"+Replace this use of System.out by a logger.(ˆíÚº8Ú°—ì2J$53200852-f240-427f-9f09-8fb71f8d7fb8
-r	java:S106+"+Replace this use of System.out by a logger.(ÚÄ©ºûÿÿÿÿ8Ú°—ì2J$4e99da58-a2cf-4ddb-8699-d424a6d017d5
+
+java:S2095 "JUse try-with-resources or close this "ServerSocket" in a "finally" clause.(‹ºÙı8Ú°—ì2J$6be831b8-8b98-44ce-93e4-04f10ed2aa61
+r	java:S106"+Replace this use of System.out by a logger.(éŞşüÿÿÿÿ8Ú°—ì2J$f68c54ff-a1f6-45be-afc1-67424c1d2eec
+m	java:S106$"+Replace this use of System.out by a logger.(ˆíÚº8Ú°—ì2J$1ce04ca4-08a1-4c95-98ac-a1785d6caf35
+L	java:S106,"+Replace this use of System.out by a logger.(ÚÄ©ºûÿÿÿÿ8¹À¬ì2
 f
-java:S1128"$Remove this unused import 'java.io'.(¬›ãD8Ú°—ì2J$da335385-b0b4-4735-bc2d-260bd70b7cc2
+java:S1128"$Remove this unused import 'java.io'.(¬›ãD8Ú°—ì2J$5fde2fba-ba71-4e39-9575-3a4ae3275c18
 
-java:S1128"7Remove this unused import 'java.net.InetSocketAddress'.(·¬ğ¶ıÿÿÿÿ8Û°—ì2J$534a42f9-3e8a-4c6c-bdba-d999400e6f18
+java:S1128"7Remove this unused import 'java.net.InetSocketAddress'.(·¬ğ¶ıÿÿÿÿ8Û°—ì2J$e648ec12-00af-476b-a2cb-b40e431bafc5
 s
 java:S1128
-"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8Û°—ì2J$c1c71f0b-25d1-48ac-8eff-e71492ffb2dc
+"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8Û°—ì2J$afc35b3b-170b-4b2f-80ab-de0366c13f0c
 s
-java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8Û°—ì2J$297bee08-10ae-4a2c-89b0-572f0515868f
+java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8Û°—ì2J$c7ffa776-55d7-4d30-84fa-1734ae257652
 v
-java:S1128".Remove this unused import 'java.util.Scanner'.(ÒÜÅ¸úÿÿÿÿ8Û°—ì2J$da26b2aa-0105-4287-9701-c997c91129a3
+java:S1128".Remove this unused import 'java.util.Scanner'.(ÒÜÅ¸úÿÿÿÿ8Û°—ì2J$01328dd1-b8b2-4fe9-aa27-c992399059a9
