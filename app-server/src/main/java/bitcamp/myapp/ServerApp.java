@@ -19,8 +19,6 @@ public class ServerApp {
     private static RouletteCommand rouletteCommand = new RouletteCommand();
     public static void main(String[] args) {
 
-//        rouletteCommand.excute();
-
         ServerApp server = new ServerApp();
         server.execute();
     }
@@ -39,7 +37,6 @@ public class ServerApp {
                 ClientHandler handler = new ClientHandler(socket, clients.size() + 1, clients, rouletteCommand);
                 clients.add(handler);
                 handler.start();
-
             }
 
         }catch (Exception e)
@@ -48,12 +45,4 @@ public class ServerApp {
             e.printStackTrace();
         }
     }
-
-//    private void startGame() {
-//        String player1 = clients.get(0).getNickname();
-//        String player2 = clients.get(1).getNickname();
-//        for (ClientHandler client : clients) {
-//            client.sendMessage("게임 시작! " + player1 + "와 " + player2 + "가 진행합니다.");
-//        }
-//    }
 }

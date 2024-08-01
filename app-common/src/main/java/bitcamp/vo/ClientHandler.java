@@ -15,8 +15,8 @@ public class ClientHandler extends Thread{
 
     CopyOnWriteArrayList<ClientHandler> clients;
     private static final Object lock = new Object(); //
-    private ClientHandler currentTurnClient = null; // 현재 턴을 가진 클라이언트/ 동기화 객체
     private final RouletteCommand rouletteCommand;
+    private static boolean gameStarted = false; // 게임 시작 여부
     private volatile boolean flag = false;  // Volatile 키워드 추가
 
 
@@ -56,10 +56,18 @@ public class ClientHandler extends Thread{
 
             nickname = in.nextLine();
 
-            while (clients.get(1).getNickname() == null || clients.get(0).getNickname() == null) {
+            synchronized (lock) {
+                // 모든 클라이언트가 닉네임을 입력할 때까지 대기
+                while (clients.stream().anyMatch(c -> c.getNickname() == null)) {
+                    lock.wait();
+                }
 
+                if (!gameStarted) {
+                    // 모든 클라이언트가 준비되었을 때 게임 시작 메시지 전송
+                    printStart();
+                    gameStarted = true; // 게임이 시작되었음을 기록
+                }
             }
-            printStart();
             startGame();
 
             in.close();
@@ -135,8 +143,6 @@ public class ClientHandler extends Thread{
                         break; // 종료
 
                     } else {
-                        client.sendMessage("게임 시작! 상대의 턴 입니다 기다리세요");
-
                         lock.wait();// 자신의 턴이 아닐 때 대기
                     }
                 }
