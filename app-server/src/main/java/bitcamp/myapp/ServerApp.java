@@ -41,11 +41,11 @@ public class ServerApp {
                 handler.start();
             }
 
-            // 모든 클라이언트가 연결되면 게임 시작 메시지를 전송
-            while (clients.get(1).getNickname()==null) {
-
-            }
-            startGame();
+//            // 모든 클라이언트가 연결되면 게임 시작 메시지를 전송
+//            while (clients.get(1).getNickname()==null) {
+//
+//            }
+//            startGame();
             // 계속 실행 상태 유지
             while (true) {
                 // 게임 중 추가적인 서버 작업이 있을 경우 여기에 추가
@@ -58,11 +58,11 @@ public class ServerApp {
         }
     }
 
-    private void startGame() {
-        String player1 = clients.get(0).getNickname();
-        String player2 = clients.get(1).getNickname();
-        for (ClientHandler client : clients) {
-            client.sendMessage("게임 시작! " + player1 + "와 " + player2 + "가 진행합니다.");
-        }
-    }
+//    private void startGame() {
+//        String player1 = clients.get(0).getNickname();
+//        String player2 = clients.get(1).getNickname();
+//        for (ClientHandler client : clients) {
+//            client.sendMessage("게임 시작! " + player1 + "와 " + player2 + "가 진행합니다.");
+//        }
+//    }
 }

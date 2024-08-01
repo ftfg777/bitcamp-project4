@@ -3,15 +3,14 @@ package bitcamp.myapp;
 import bitcamp.command.RouletteCommand;
 import bitcamp.util.Prompt;
 
-import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class ClientApp {
+public class ClientApp2 {
 
     public static void main(String[] args) {
-        ClientApp app = new ClientApp();
+        ClientApp2 app = new ClientApp2();
         app.execute();
     }
 
@@ -62,7 +61,6 @@ public class ClientApp {
                         gameMessage = in.nextLine();
                         System.out.println(gameMessage);
                     }
-
 
                     // 서버가 게임 종료 메시지를 보내면 루프 종료
                     if (gameMessage.contains("게임 종료")) {

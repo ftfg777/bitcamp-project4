@@ -11,10 +11,14 @@ import static java.lang.System.load;
 public class ClientHandler extends Thread{
 
     CopyOnWriteArrayList<ClientHandler> clients;
+    private static final Object lock = new Object(); //
+    private ClientHandler currentTurnClient = null; // 현재 턴을 가진 클라이언트/ 동기화 객체
+
 
     private Socket socket;
     private int playerNumber;
     private String nickname;
+    private boolean turn;
     private PrintStream out;
     private Scanner in;
 
@@ -30,34 +34,24 @@ public class ClientHandler extends Thread{
             out = new PrintStream(socket.getOutputStream());
             in = new Scanner(socket.getInputStream());
 
+            if (playerNumber == 1)
+            {
+                this.turn = true;
+            }else
+            {
+                this.turn = false;
+            }
+
             // 플레이어 번호 전송
             out.println("당신은 " + playerNumber + "번 플레이어입니다.");
 
-            // 닉네임 요청 및 수신
-            out.print("닉네임을 입력해 주세요: ");
             nickname = in.nextLine();
 
-            while (clients.get(1).getNickname() == null) {
+            while (clients.get(1).getNickname() == null || clients.get(0).getNickname() == null) {
 
             }
+            printStart();
             startGame();
-
-            while (true) {
-                // 클라이언트가 보낸 문자열을 수신한다.
-                String str = in.nextLine();
-                System.out.println("플레이어 " + playerNumber + "(" + nickname + "): " + str);
-
-                if (str.equals("quit")) {
-                    break;
-                }
-
-                // 다른 플레이어에게 메시지 전송
-                for (ClientHandler client : clients) {
-                    if (client != this) {
-                        client.sendMessage(nickname + ": " + str);
-                    }
-                }
-            }
 
             in.close();
             out.close();
@@ -76,11 +70,71 @@ public class ClientHandler extends Thread{
         out.println(message);
     }
 
-    private void startGame() {
-        String player1 = clients.get(0).getNickname();
-        String player2 = clients.get(1).getNickname();
+    private void printStart() {
+            String player1 = clients.get(0).getNickname();
+            String player2 = clients.get(1).getNickname();
+            for (ClientHandler client : clients) {
+                client.sendMessage("게임 시작! " + player1 + "와 " + player2 + "가 진행합니다.");
+                break;
+            }
+
+    }
+
+    private void startGame()
+    {
+        while (true) {
+            for (ClientHandler client : clients) {
+                    new Thread(() -> handleInput(client)).start();
+            }
+        }
+    }
+
+    private void handleInput(ClientHandler client) {
+        try {
+            while (true) {
+                synchronized (lock) {
+                    if (client.turn) {
+                        client.sendMessage("게임 시작! 당신이 차례입니다 입력을 시작하세요. 1번 : 자기자신 쏘기 | 2번 : 상대 쏘기");
+                        client.sendMessage("차례입니다");
+                        String message = client.in.nextLine();
+                        int no = Integer.parseInt(message);
+                        String resultMessage;
+
+                        if (no == 1) {
+                            resultMessage = "자기자신을 쏘았습니다";
+                        } else if (no == 2) {
+                            resultMessage = "상대를 쏘았습니다";
+                        } else {
+                            resultMessage = "없는 번호다 모자란 친구야";
+                        }
+
+                        broadcastMessage(client.nickname + ": " + resultMessage);
+
+                        for (ClientHandler c : clients) {
+                            if (c.turn) {
+                                c.turn = false;
+                            }else
+                            {
+                                c.turn = true;
+                            }
+                        }
+                        lock.notifyAll(); // 모든 대기 스레드에 알림
+                        break; // 종료
+                    } else {
+                        client.sendMessage("게임 시작! 상대의 턴 입니다 기다리세요");
+                        lock.wait();// 자신의 턴이 아닐 때 대기
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("플레이어 입력 처리 중 오류 발생");
+            e.printStackTrace();
+        }
+    }
+
+    private void broadcastMessage(String message) {
         for (ClientHandler client : clients) {
-            client.sendMessage("게임 시작! " + player1 + "와 " + player2 + "가 진행합니다.");
+            client.sendMessage(message);
         }
     }
 }
