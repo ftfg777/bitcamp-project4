@@ -1,17 +1,4 @@
 
-
-java:S2095 "JUse try-with-resources or close this "ServerSocket" in a "finally" clause.(‹ºÙı8Ú°—ì2J$6be831b8-8b98-44ce-93e4-04f10ed2aa61
-r	java:S106"+Replace this use of System.out by a logger.(éŞşüÿÿÿÿ8Ú°—ì2J$f68c54ff-a1f6-45be-afc1-67424c1d2eec
-m	java:S106$"+Replace this use of System.out by a logger.(ˆíÚº8Ú°—ì2J$1ce04ca4-08a1-4c95-98ac-a1785d6caf35
-L	java:S106,"+Replace this use of System.out by a logger.(ÚÄ©ºûÿÿÿÿ8¹À¬ì2
-f
-java:S1128"$Remove this unused import 'java.io'.(¬›ãD8Ú°—ì2J$5fde2fba-ba71-4e39-9575-3a4ae3275c18
-
-java:S1128"7Remove this unused import 'java.net.InetSocketAddress'.(·¬ğ¶ıÿÿÿÿ8Û°—ì2J$e648ec12-00af-476b-a2cb-b40e431bafc5
-s
-java:S1128
-"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8Û°—ì2J$afc35b3b-170b-4b2f-80ab-de0366c13f0c
-s
-java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8Û°—ì2J$c7ffa776-55d7-4d30-84fa-1734ae257652
-v
-java:S1128".Remove this unused import 'java.util.Scanner'.(ÒÜÅ¸úÿÿÿÿ8Û°—ì2J$01328dd1-b8b2-4fe9-aa27-c992399059a9
+r	java:S106 "+Replace this use of System.out by a logger.(éŞşüÿÿÿÿ8Ç£ùö2J$6d38ca8c-d8fc-4b56-ab32-4c5b0648b34f
+m	java:S106&"+Replace this use of System.out by a logger.(ˆíÚº8Ç£ùö2J$fe195e7a-d7f8-4d3f-ae5d-3f2f831ed5ad
+r	java:S106."+Replace this use of System.out by a logger.(ÚÄ©ºûÿÿÿÿ8Ç£ùö2J$5743a8ea-b8e8-4653-b995-06cb0e4625d4

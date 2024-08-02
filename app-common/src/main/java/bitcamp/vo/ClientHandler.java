@@ -4,6 +4,7 @@ import bitcamp.command.RouletteCommand;
 
 import java.io.IOException;
 import java.io.PrintStream;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -30,12 +31,13 @@ public class ClientHandler extends Thread{
     private PrintStream out;
     private Scanner in;
 
+
+
     public ClientHandler(Socket socket, int playerNumber, CopyOnWriteArrayList<ClientHandler> list, RouletteCommand rouletteCommand) {
         this.socket = socket;
         this.playerNumber = playerNumber;
         clients = list;
         this.rouletteCommand = rouletteCommand;
-
     }
 
     @Override
@@ -98,72 +100,87 @@ public class ClientHandler extends Thread{
     private void startGame() {
         while (!flag) {
                 for (ClientHandler client : clients) {
-                    new Thread(() -> handleInput(client)).start();
+                    if (gameStarted){
+                        new Thread(() -> handleInput(client)).start();
+                    }
                 }
         }
     }
 
     private void handleInput(ClientHandler client) {
         try {
-            while (true) {
+             while (true) {
+                 if (flag) {
+                     break;
+                 }
                 synchronized (lock) {
-                    if (flag) {
-                        // flag가 true일 때 루프 종료
-                        break;
-                    }
+                    if (client != null){
+                        if (client.turn) {
+                            client.sendMessage("당신의 차례입니다 입력을 시작하세요.");
 
-                    if (client.turn) {
-                        client.sendMessage("당신의 차례입니다 입력을 시작하세요. 1번 : 자기자신 쏘기 | 2번 : 상대 쏘기");
-                        client.sendMessage("차례입니다");
-                        String message = client.in.nextLine();
-                        int no = Integer.parseInt(message);
-                        String resultMessage;
+                            waitingMessage(client);
 
-                        if (no == 1) {
-                            resultMessage = "자기자신을 쏘았습니다";
-                        } else if (no == 2) {
-                            resultMessage = "상대를 쏘았습니다";
-                        } else {
-                            resultMessage = "없는 번호다 모자란 친구야";
-                        }
+                            String  message = client.in.nextLine();
+                            int no = Integer.parseInt(message);
+                            String resultMessage;
 
-                        broadcastMessage(client.nickname + "(이)가 " + resultMessage);
-
-                        flag = rouletteCommand.excute();
-
-                        broadcastMessage(rouletteCommand.getTurn() + "발 남았습니다.");
-
-                        if (flag) {
-                            // 자신한테 쏨
                             if (no == 1) {
-                                client.death = true;
+                                resultMessage = "자기자신을 쏘았습니다";
+                            } else if (no == 2) {
+                                resultMessage = "상대를 쏘았습니다";
+                            } else {
+                                resultMessage = "없는 번호다 모자란 친구야";
                             }
-                            // 상대한테 쏨
-                            if (no == 2) {
-                                for (ClientHandler client2 : clients) {
-                                    if (!client.getNickname().equals(client2.getNickname())) {
-                                        client2.death = true;
-                                        break;
+
+                            broadcastMessage(client.nickname + "(이)가 " + resultMessage);
+
+                            flag = rouletteCommand.excute();
+
+                            if (flag) {
+                                // 걸렸는데 자신을 쏜 경우
+                                if (no == 1) {
+                                    client.death = true;
+                                }
+
+                                // 걸렸는데 상대방을 쏜 경우
+                                if (no == 2) {
+                                    for (ClientHandler client2 : clients) {
+                                        if (!client.getNickname().equals(client2.getNickname())) {
+                                            client2.death = true;
+                                            break;
+                                        }
                                     }
                                 }
+                                resultMessage();
+                                broadcastMessage("게임 종료");
+                                lock.notifyAll();
+                                gameStarted = false;
+                                break;
                             }
-                            resultMessage();
-                            broadcastMessage("게임 종료");
-                            lock.notifyAll(); // 대기중인 모든 스레드 알림
-                            break;
-                        }
+
+
+                            // 자신을 쏘고 살아남았을 경우
+                            if ((!client.isDeath()) && no == 1){
+                                broadcastMessage("럭키비키! " + client.getNickname() + "님이 자신을 쏘고 살아남았습니다. 추가 기회를 획득합니다.");
+                                broadcastMessage(rouletteCommand.getTurn() + "발 남았습니다.");
+                                continue;
+                            }else{
+                                broadcastMessage(rouletteCommand.getTurn() + "발 남았습니다.");
+                            }
 
                             // 턴 전환
                             for (ClientHandler c : clients) {
                                 c.turn = !c.turn;
                             }
 
-                        lock.notifyAll(); // 모든 대기 스레드에 알림
-                        break; // 종료
+                            lock.notifyAll(); // 모든 대기 스레드에 알림
+                            break; // 종료
 
-                    } else {
-                        lock.wait();// 자신의 턴이 아닐 때 대기
+                        } else {
+                            lock.wait();
+                        }
                     }
+
                 }
             }
         } catch (Exception e) {
@@ -178,20 +195,28 @@ public class ClientHandler extends Thread{
         }
     }
 
-    private void resultMessage() {
-        for (ClientHandler client : clients) {
-            if (client.isDeath()){
-                client.sendMessage("=================================");
-                client.sendMessage(client.nickname +"가 패배했습니다.");
-                client.sendMessage("=================================");
-            }else{
-                client.sendMessage("=================================");
-                client.sendMessage(client.nickname +"가 승리했습니다.");
-                client.sendMessage("=================================");
+    private void waitingMessage(ClientHandler client){
+        for (ClientHandler client2 : clients) {
+            if (!client.getNickname().equals(client2.getNickname())) {
+                client2.sendMessage("상대 플레이어[" + client.getNickname() + "](이)가 진행 중 입니다....");
+                break;
             }
         }
     }
 
+    private void resultMessage() {
+        for (ClientHandler client : clients) {
+            if (client.isDeath()){
+                client.sendMessage("=================================");
+                client.sendMessage(client.nickname +"(이)가 패배했습니다.");
+                client.sendMessage("=================================");
+            }else{
+                client.sendMessage("=================================");
+                client.sendMessage(client.nickname +"(이)가 승리했습니다.");
+                client.sendMessage("=================================");
+            }
+        }
+    }
 
     private boolean isDeath(){
         return this.death;

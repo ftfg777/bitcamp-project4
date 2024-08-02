@@ -15,12 +15,14 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class ServerApp {
 
     private static final int MAX_PLAYERS = 2;
-    private CopyOnWriteArrayList<ClientHandler> clients = new CopyOnWriteArrayList<>(); //현재 연결된 클라이언트의 정보를 저장하는 리스트
-    private static RouletteCommand rouletteCommand = new RouletteCommand();
+    private final CopyOnWriteArrayList<ClientHandler> clients = new CopyOnWriteArrayList<>(); //현재 연결된 클라이언트의 정보를 저장하는 리스트
+    private static final RouletteCommand rouletteCommand = new RouletteCommand();
+
     public static void main(String[] args) {
 
         ServerApp server = new ServerApp();
         server.execute();
+
     }
 
     void execute()
@@ -45,4 +47,5 @@ public class ServerApp {
             e.printStackTrace();
         }
     }
+
 }

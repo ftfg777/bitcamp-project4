@@ -57,6 +57,7 @@ public class ClientApp {
                     // 서버가 차례를 기다리라는 메시지를 보내면
                     if (gameMessage.contains("차례입니다")) {
                         // 자신의 차례가 되었을 때 입력을 받음
+                        printMenu();
                         String input = Prompt.input("입력: ");
                         out.println(input);
 
@@ -81,5 +82,45 @@ public class ClientApp {
             System.out.println("클라이언트 오류입니다");
             e.printStackTrace();
         }
+    }
+
+
+    private void printMenu(){
+        // 메뉴 옵션을 저장할 문자열 배열
+        String[] options = {
+            "1번 : 자신 쏘기",
+            "2번 : 상대 쏘기"
+        };
+
+        // 화면에 표시할 최대 길이를 계산
+        int maxLength = 0;
+        for (String option : options) {
+            if (option.length() > maxLength) {
+                maxLength = option.length();
+            }
+        }
+
+        // 테두리를 그릴 때 사용할 문자
+        char borderChar = '*';
+
+        // 테두리 출력
+        printBorder(maxLength, borderChar);
+        for (String option : options) {
+            System.out.println(borderChar + " " + padRight(option, maxLength) + " " + borderChar);
+        }
+        printBorder(maxLength, borderChar);
+    }
+
+    // 문자열 오른쪽에 공백을 추가하여 길이를 맞춤
+    public static String padRight(String s, int n) {
+        return String.format("%-" + n + "s", s);
+    }
+
+    // 테두리 출력
+    public static void printBorder(int length, char borderChar) {
+        for (int i = 0; i < length + 9; i++) {
+            System.out.print(borderChar);
+        }
+        System.out.println();
     }
 }

@@ -154,7 +154,7 @@ public class RouletteCommand {
 
     private void setTarget(){
         Random random = new Random();
-        this.target = random.nextInt(INIT_SIZE); //0~...(INIT_SIZE-1)
+        this.target = random.nextInt(1, INIT_SIZE); //0~...(INIT_SIZE-1)
     }
 
     public int getTarget(){
