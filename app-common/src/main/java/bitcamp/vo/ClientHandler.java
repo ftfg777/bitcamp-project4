@@ -6,12 +6,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ClientHandler extends Thread{
@@ -109,83 +104,91 @@ public class ClientHandler extends Thread{
 
     private void handleInput(ClientHandler client) {
         try {
-             while (true) {
-                 if (flag) {
-                     break;
-                 }
+             while (!flag) {
                 synchronized (lock) {
-                    if (client != null){
-                        if (client.turn) {
-                            client.sendMessage("당신의 차례입니다 입력을 시작하세요.");
+                    if (!flag) {
+                        if (client != null) {
+                            if (client.turn) {
+                                client.sendMessage("당신의 차례입니다 입력을 시작하세요.");
 
-                            waitingMessage(client);
+                                waitingMessage(client);
 
-                            String  message = client.in.nextLine();
-                            int no = Integer.parseInt(message);
-                            String resultMessage;
+                                String message = client.in.nextLine();
+                                int no = Integer.parseInt(message);
+                                String resultMessage;
 
-                            if (no == 1) {
-                                resultMessage = "자기자신을 쏘았습니다";
-                            } else if (no == 2) {
-                                resultMessage = "상대를 쏘았습니다";
-                            } else {
-                                resultMessage = "없는 번호다 모자란 친구야";
-                            }
-
-                            broadcastMessage(client.nickname + "(이)가 " + resultMessage);
-
-                            flag = rouletteCommand.excute();
-
-                            if (flag) {
-                                // 걸렸는데 자신을 쏜 경우
                                 if (no == 1) {
-                                    client.death = true;
+                                    resultMessage = "자기자신을 쏘았습니다";
+                                } else if (no == 2) {
+                                    resultMessage = "상대를 쏘았습니다";
+                                } else {
+                                    resultMessage = "없는 번호다 모자란 친구야";
                                 }
 
-                                // 걸렸는데 상대방을 쏜 경우
-                                if (no == 2) {
-                                    for (ClientHandler client2 : clients) {
-                                        if (!client.getNickname().equals(client2.getNickname())) {
-                                            client2.death = true;
-                                            break;
+                                broadcastMessage(client.nickname + "(이)가 " + resultMessage);
+
+                                flag = rouletteCommand.excute();
+
+                                if (flag) {
+                                    // 걸렸는데 자신을 쏜 경우
+                                    if (no == 1) {
+                                        client.death = true;
+                                    }
+
+                                    // 걸렸는데 상대방을 쏜 경우
+                                    if (no == 2) {
+                                        for (ClientHandler client2 : clients) {
+                                            if (!client.getNickname().equals(client2.getNickname())) {
+                                                client2.death = true;
+                                                break;
+                                            }
                                         }
                                     }
+                                    resultMessage();
+                                    broadcastMessage("게임 종료");
+                                    lock.notifyAll();
+                                    gameStarted = false;
+                                    break;
                                 }
-                                resultMessage();
-                                broadcastMessage("게임 종료");
-                                lock.notifyAll();
-                                gameStarted = false;
-                                break;
+
+
+                                // 자신을 쏘고 살아남았을 경우
+                                if ((!client.isDeath()) && no == 1) {
+                                    broadcastMessage("럭키비키! " + client.getNickname() + "님이 자신을 쏘고 살아남았습니다. 추가 기회를 획득합니다.");
+                                    broadcastMessage(rouletteCommand.getTurn() + "발 남았습니다.");
+                                    continue;
+                                } else {
+                                    broadcastMessage(rouletteCommand.getTurn() + "발 남았습니다.");
+                                }
+
+                                // 턴 전환
+                                for (ClientHandler c : clients) {
+                                    c.turn = !c.turn;
+                                }
+
+                                lock.notifyAll(); // 모든 대기 스레드에 알림
+                                break; // 종료
+
+                            } else {
+                                lock.wait();
                             }
-
-
-                            // 자신을 쏘고 살아남았을 경우
-                            if ((!client.isDeath()) && no == 1){
-                                broadcastMessage("럭키비키! " + client.getNickname() + "님이 자신을 쏘고 살아남았습니다. 추가 기회를 획득합니다.");
-                                broadcastMessage(rouletteCommand.getTurn() + "발 남았습니다.");
-                                continue;
-                            }else{
-                                broadcastMessage(rouletteCommand.getTurn() + "발 남았습니다.");
-                            }
-
-                            // 턴 전환
-                            for (ClientHandler c : clients) {
-                                c.turn = !c.turn;
-                            }
-
-                            lock.notifyAll(); // 모든 대기 스레드에 알림
-                            break; // 종료
-
-                        } else {
-                            lock.wait();
                         }
+                    }else
+                    {
+                        break;
                     }
-
                 }
             }
-        } catch (Exception e) {
+        } catch (IllegalStateException e) {
+            flag = true;
+            System.out.println("IllegalStateException 오류 발생");
+        }catch (NoSuchElementException e){
+            flag = true;
+            System.out.println("NoSuchElementException 오류 발생");
+        }
+        catch (Exception e)
+        {
             System.out.println("플레이어 입력 처리 중 오류 발생");
-            e.printStackTrace();
         }
     }
 
