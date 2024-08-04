@@ -109,6 +109,7 @@ public class ClientHandler extends Thread{
                     if (!flag) {
                         if (client != null) {
                             if (client.turn) {
+                                client.sendMessage("장전");
                                 client.sendMessage("당신의 차례입니다 입력을 시작하세요.");
 
                                 waitingMessage(client);
@@ -118,14 +119,14 @@ public class ClientHandler extends Thread{
                                 String resultMessage;
 
                                 if (no == 1) {
-                                    resultMessage = "자기자신을 쏘았습니다";
+                                    resultMessage = "자신을 쏘았습니다.";
                                 } else if (no == 2) {
-                                    resultMessage = "상대를 쏘았습니다";
+                                    resultMessage = "상대를 쏘았습니다.";
                                 } else {
                                     resultMessage = "없는 번호다 모자란 친구야";
                                 }
 
-                                broadcastMessage(client.nickname + "(이)가 " + resultMessage);
+                                broadcastMessage(Ansi.boldColoredText(client.nickname, Ansi.PURPLE) + "(이)가 " + resultMessage);
 
                                 flag = rouletteCommand.excute();
 
@@ -144,6 +145,8 @@ public class ClientHandler extends Thread{
                                             }
                                         }
                                     }
+
+                                    client.sendMessage("발사");
                                     resultMessage();
                                     broadcastMessage("게임 종료");
                                     lock.notifyAll();
@@ -152,13 +155,14 @@ public class ClientHandler extends Thread{
                                 }
 
 
+                                client.sendMessage("불발");
                                 // 자신을 쏘고 살아남았을 경우
                                 if ((!client.isDeath()) && no == 1) {
-                                    broadcastMessage("럭키비키! " + client.getNickname() + "님이 자신을 쏘고 살아남았습니다. 추가 기회를 획득합니다.");
-                                    broadcastMessage(rouletteCommand.getTurn() + "발 남았습니다.");
+                                    broadcastMessage("\uD83C\uDF40 럭키비키! " + Ansi.coloredText(client.getNickname(), Ansi.PURPLE) + "님이 자신을 쏘고 살아남았습니다. 추가 기회를 획득합니다. \uD83C\uDF40");
+                                    broadcastMessage(Ansi.boldColoredText(rouletteCommand.getTurn() + "발 남았습니다.", Ansi.RED));
                                     continue;
                                 } else {
-                                    broadcastMessage(rouletteCommand.getTurn() + "발 남았습니다.");
+                                    broadcastMessage(Ansi.boldColoredText(rouletteCommand.getTurn() + "발 남았습니다.", Ansi.RED));
                                 }
 
                                 // 턴 전환
@@ -201,7 +205,7 @@ public class ClientHandler extends Thread{
     private void waitingMessage(ClientHandler client){
         for (ClientHandler client2 : clients) {
             if (!client.getNickname().equals(client2.getNickname())) {
-                client2.sendMessage("상대 플레이어[" + client.getNickname() + "](이)가 진행 중 입니다....");
+                client2.sendMessage("상대(" + Ansi.boldColoredText(client.getNickname(), Ansi.PURPLE) + ") 턴입니다.");
                 break;
             }
         }
@@ -210,13 +214,13 @@ public class ClientHandler extends Thread{
     private void resultMessage() {
         for (ClientHandler client : clients) {
             if (client.isDeath()){
-                client.sendMessage("=================================");
-                client.sendMessage(client.nickname +"(이)가 패배했습니다.");
-                client.sendMessage("=================================");
+                client.sendMessage(Ansi.boldText("===================================================="));
+                client.sendMessage("☠️" + client.nickname +"(이)가 패배했습니다." + "☠️");
+                client.sendMessage(Ansi.boldText("===================================================="));
             }else{
-                client.sendMessage("=================================");
-                client.sendMessage(client.nickname +"(이)가 승리했습니다.");
-                client.sendMessage("=================================");
+                client.sendMessage(Ansi.boldText("===================================================="));
+                client.sendMessage("\uD83C\uDF89" + client.nickname +"(이)가 승리했습니다." + "\uD83C\uDF89");
+                client.sendMessage(Ansi.boldText("===================================================="));
             }
         }
     }

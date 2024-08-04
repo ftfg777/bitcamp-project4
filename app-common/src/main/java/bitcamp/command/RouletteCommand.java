@@ -163,8 +163,8 @@ public class RouletteCommand {
 
 
 
-    public int getTurn(){
-        return this.turn;
+    public String getTurn(){
+        return String.valueOf(this.turn);
     }
 
 }

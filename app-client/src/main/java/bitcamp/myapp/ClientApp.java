@@ -3,6 +3,7 @@ package bitcamp.myapp;
 import bitcamp.command.RouletteCommand;
 import bitcamp.util.Prompt;
 
+import bitcamp.vo.MP3Player;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
@@ -41,16 +42,26 @@ public class ClientApp {
             rouletteCommand.printRoulette();
 
             // 게임 진행
-            // 게임 진행
             while (true) {
                 // 서버에서 메시지를 수신할 때까지 대기
                 if (in.hasNextLine()) {
                     String gameMessage = in.nextLine();
                     System.out.println(gameMessage);
 
+                    switch (gameMessage){
+                        case "발사" :
+                            MP3Player.shot();
+                            break;
+                        case "불발" :
+                            MP3Player.emptyBullet();
+                            break;
+                        case "장전":
+                            MP3Player.loadingBullet();
+                            break;
+                    }
+
                     // 서버가 게임 종료 메시지를 보내면 루프 종료
                     if (gameMessage.contains("게임 종료")) {
-                        System.out.println("게임이 종료되었습니다.");
                         break;
                     }
 
