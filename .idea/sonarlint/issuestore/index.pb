@@ -19,8 +19,6 @@ c
 3app-common/src/main/java/bitcamp/myapp/vo/README.md,9/4/949a5f47cfb0c1943ec9e704665987b0b5932c2d
 _
 /app-common/src/main/java/bitcamp/menu/README.md,f/b/fb9ce6a061b995a41dcd4e83934d0fe986244d8e
-c
-3app-common/src/main/java/bitcamp/listener/README.md,8/9/890500dd7f4b471b06d2b6f0aa6f3d1450b80779
 i
 9app-common/src/main/java/bitcamp/myapp/dao/stub/README.md,7/b/7bab6db44d78beb8f325bd8fca2116ce2f0976a4
 b
@@ -48,8 +46,6 @@ f
 6app-common/src/main/java/bitcamp/vo/ClientHandler.java,5/2/52f2706c40a4e1d3011747233c2174d77adb1e99
 _
 /app-common/src/main/java/bitcamp/vo/Bullet.java,a/c/ac42bdcda202c8db1d188260961a2c5e1900727e
-b
-2app-common/src/main/java/bitcamp/vo/BulletBox.java,3/7/37ca8498bba841344b0634818144e52704753567
 m
 =app-common/src/main/java/bitcamp/command/RouletteCommand.java,5/e/5e40cf282a73fb7cd818a24d30e6a05456ab270c
 ]

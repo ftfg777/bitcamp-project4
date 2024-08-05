@@ -30,6 +30,7 @@ public class ServerApp {
         ServerSocket serverSocket = null;
         try {
             System.out.println("서버 실행!");
+            rouletteCommand.printRoulette();
 
             serverSocket = new ServerSocket(8888);
 
