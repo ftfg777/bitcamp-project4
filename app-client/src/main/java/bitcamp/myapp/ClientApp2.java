@@ -11,6 +11,8 @@ import java.util.Scanner;
 
 public class ClientApp2 {
 
+    RouletteCommand rouletteCommand = RouletteCommand.getInstance();
+
     public static void main(String[] args) {
         ClientApp2 app = new ClientApp2();
         app.execute();
@@ -38,13 +40,13 @@ public class ClientApp2 {
             System.out.println(startMessage);
 
 
-            RouletteCommand rouletteCommand = new RouletteCommand();
             rouletteCommand.printRoulette();
 
             // 게임 진행
             while (true) {
                 // 서버에서 메시지를 수신할 때까지 대기
                 if (in.hasNextLine()) {
+
                     String gameMessage = in.nextLine();
                     System.out.println(gameMessage);
 

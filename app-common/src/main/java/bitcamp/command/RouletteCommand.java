@@ -1,5 +1,8 @@
 package bitcamp.command;
 
+import bitcamp.vo.Ansi;
+import bitcamp.vo.Kor;
+
 import java.util.Random;
 
 public class RouletteCommand {
@@ -28,10 +31,27 @@ public class RouletteCommand {
     ////////////////////// Constructor ////////////////////////
     ///////////////////////////////////////////////////////////
     public RouletteCommand(){
-        setTurn(INIT_SIZE);
+        this.turn = INIT_SIZE;
         setTarget();   // 1~...size
     }
 
+    ///////////////////////////////////////////////////////////
+    ////////////////////// getInstance() //////////////////////
+    ///////////////////////////////////////////////////////////
+    private static RouletteCommand m;
+
+    // setup Menu Instance
+    public static RouletteCommand getInstance() {
+
+        m = new RouletteCommand();
+
+        return m;
+    }// Method getInstance END
+
+    // reset RouletteCommand Instance
+    public static void freeInstance() {
+        m = null;
+    }// Method freeInstance END
 
 
 
@@ -62,12 +82,18 @@ public class RouletteCommand {
                 // ANSI 이스케이프 시퀀스 적용 위치           //
                 //////////////////////////////////////////////
                 //unused shot
-                if(shotNum<=turn){
-                    str.append(shot[sbNum]);
+                if(shotNum<turn){
+                    str.append(Ansi.boldColoredText(shot[sbNum], Ansi.WHITE));
                 }
                 //used shot
-                else{
-                    str.append(shot[sbNum]);
+                if(shotNum==turn){
+                    if((turn == target)){
+                    str.append(Ansi.boldColoredText(shot[sbNum], Ansi.RED));
+                    }
+//                    else {
+//                        str.append(Ansi.coloredText(shot[sbNum], Ansi.WHITE));
+//                    str.append(shot[sbNum]);
+//                    }
                 }
                 //////////////////////////////////////////////
                 //////////////////////////////////////////////
@@ -84,19 +110,19 @@ public class RouletteCommand {
         String[] str=new String[13];
 
 
-        str[0] = ( "          (_/-------------_______________________)\t");
-        str[1] = ( "          `|  /~~~~~~~~~~\\                       |\t");
-        str[2] = ( "           ;  |--------(-||______________________|\t");
-        str[3] = ( "           ;  |--------(-| ____________|\t\t\t");
-        str[4] = ( "           ;  \\__________/'\t\t\t\t\t\t\t");
-        str[5] = ( "         _/__         ___;\t\t\t\t\t\t\t");
-        str[6] = ( "      ,~~    |  __--~~\t\t\t\t\t\t\t\t");
-        str[7] = ( "     '        ~~| (  |\t\t\t\t\t\t\t\t");
-        str[8] = ( "    '      '~~  `____'\t\t\t\t\t\t\t\t");
-        str[9] = ( "   '      '\t\t\t\t\t\t\t\t\t\t\t");
-        str[10]= ("  '      `\t\t\t\t\t\t\t\t\t\t\t");
-        str[11]= (" '       `\t\t\t\t\t\t\t\t\t\t\t");
-        str[12]= ("'--------`\t\t\t\t\t\t\t\t\t\t\t");
+        str[0] = String.format("%-55s", "          (_/-------------_______________________)");
+        str[1] = String.format("%-55s", "          `|  /~~~~~~~~~~\\                       |");
+        str[2] = String.format("%-55s", "           ;  |--------(-||______________________|");
+        str[3] = String.format("%-55s", "           ;  |--------(-| ____________|");
+        str[4] = String.format("%-55s", "           ;  \\__________/'");
+        str[5] = String.format("%-55s", "         _/__         ___;");
+        str[6] = String.format("%-55s", "      ,~~    |  __--~~");
+        str[7] = String.format("%-55s", "     '        ~~| (  |");
+        str[8] = String.format("%-55s", "    '      '~~  `____'");
+        str[9] = String.format("%-55s", "   '      '");
+        str[10]= String.format("%-55s", "  '      `");
+        str[11]= String.format("%-55s", " '      '");
+        str[12]= String.format("%-55s", "--------");
 
         return str;
     }
@@ -104,19 +130,19 @@ public class RouletteCommand {
     private String[] printOneShot(){
         String[] str= new String[13];
 
-        str[0] = ( "⠀⠀⠀⢠⠔⠢⡄\t\t");
-        str[1] = ( "⠀⠀⡰⠁⠀⠀⠈⢆\t\t");
-        str[2] = ( "⠀⢰⠁⠀⠀⠀⠀⠈⡆\t");
-        str[3] = ( "⠀⡇⠀⠀⠀⠀⠀⠀⢸ \t");
-        str[4] = ( "⢰⠓⠒⠒⠒⠒⠒⠚⡆\t");
-        str[5] = ( "⢸⠀⠀⠀⠀⠀⠀⠀⠀⡇\t");
-        str[6] = ( "⢸⠀⠀⠀⠀⠀⠀⠀⠀⡇\t");
-        str[7] = ( "⢸⠀⠀⠀⠀⠀⠀⠀⠀⡇\t");
-        str[8] = ( "⢸⠀⠀⠀⠀⠀⠀⠀⠀⡇\t");
-        str[9] = ( "⢸⠀⠀⠀⠀⠀⠀⠀⠀⡇\t");
-        str[10]= ( "⢸⠀⠀⠀⠀⠀⠀⠀⠀⡇\t");
-        str[11]= ( "⢨⣏⣉⣉⣉⣉⣉⣽⡅\t");
-        str[12]= ( "⢸⣀⣀⣀⣀⣀⣀⣀⡇\t");
+        str[0] = Kor.getWordFormat("%21s", "⠀    ⠔⠢⡄");
+        str[1] = Kor.getWordFormat("%22s", "⠀⠀⡰⠁⠀⠀ ⢆        ");
+        str[2] = Kor.getWordFormat("%23s", "⠀⢰⠀  ⠀⠀⠈⡆       ");
+        str[3] = Kor.getWordFormat("%23s", " ⡇⠀⠀⠀⠀⠀⠀⢸       ");
+        str[4] = Kor.getWordFormat("%23s", "⢰⠓⠒⠒⠒⠒⠒⠚⡆");
+        str[5] = Kor.getWordFormat("%23s", "⢸⠀⠀⠀⠀⠀⠀⠀⠀⡇     ");
+        str[6] = Kor.getWordFormat("%23s", "⢸⠀⠀⠀⠀⠀⠀⠀⠀⡇     ");
+        str[7] = Kor.getWordFormat("%23s", "⢸⠀⠀⠀⠀⠀⠀⠀⠀⡇     ");
+        str[8] = Kor.getWordFormat("%23s", "⢸⠀⠀⠀⠀⠀⠀⠀⠀⡇     ");
+        str[9] = Kor.getWordFormat("%23s", "⢸⠀⠀⠀⠀⠀⠀⠀⠀⡇     ");
+        str[10]= Kor.getWordFormat("%23s", "⢸⠀⠀⠀⠀⠀⠀⠀⠀⡇     ");
+        str[11]= Kor.getWordFormat("%23s", "⢨⣏⣉⣉⣉⣉⣉⣽⡅");
+        str[12]= Kor.getWordFormat("%23s", "⢸⣀⣀⣀⣀⣀⣀⣀⡇");
 
         return str;
     }
@@ -132,7 +158,7 @@ public class RouletteCommand {
             return true;
         }
 
-        setTurn(--turn);
+        setTurn();
         return false;
     }
 
@@ -148,8 +174,8 @@ public class RouletteCommand {
     //////////////////////////// -- ///////////////////////////
     ///////////////////////////////////////////////////////////
 
-    private void setTurn(int turn){
-        this.turn = turn;
+    public void setTurn(){
+        this.turn = --turn;
     }
 
     private void setTarget(){

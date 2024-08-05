@@ -10,6 +10,7 @@ public class MP3Player {
 
     public static void shot() {
         String filePath = "app-common/src/main/resources/sound/shot.mp3";
+//        String filePath = "app-common/src/main/resources/sound/shot.mp3";
         try (FileInputStream fileInputStream = new FileInputStream(filePath)) {
             Player player = new Player(fileInputStream);
             player.play();
@@ -19,9 +20,9 @@ public class MP3Player {
             e.printStackTrace();
         }
     }
-
     public static void emptyBullet() {
         String filePath = "app-common/src/main/resources/sound/emptyBullet.mp3";
+//        String filePath = "app-common/src/main/resources/sound/emptyBullet.mp3";
         try (FileInputStream fileInputStream = new FileInputStream(filePath)) {
             Player player = new Player(fileInputStream);
             player.play();
@@ -34,6 +35,7 @@ public class MP3Player {
 
     public static void loadingBullet() {
         String filePath = "app-common/src/main/resources/sound/loadingBullet.mp3";
+//        String filePath = "app-common/src/main/resources/sound/loadingBullet.mp3";
         try (FileInputStream fileInputStream = new FileInputStream(filePath)) {
             Player player = new Player(fileInputStream);
             player.play();
