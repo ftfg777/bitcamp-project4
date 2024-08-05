@@ -52,3 +52,7 @@ m
 -app-common/src/main/java/bitcamp/vo/Ansi.java,0/1/01e51b49b05556886c8b70f93f1153a09de4ce8c
 b
 2app-common/src/main/java/bitcamp/vo/MP3Player.java,d/4/d4e6ca64695b26415b108081c34b4ef7ca3f8488
+G
+app-server/build.gradle,c/b/cbdc510f619727e65e200f80511c8d8803889bed
+D
+app-client/README.md,e/5/e502400ecfc3a9a64b000c9593491f871ea700fa

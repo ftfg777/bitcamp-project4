@@ -9,7 +9,6 @@ import java.io.IOException;
 public class MP3Player {
 
     public static void shot() {
-        // ClassLoader를 사용하여 리소스 파일에 접근
         ClassLoader classLoader = MP3Player.class.getClassLoader();
         try (InputStream inputStream = classLoader.getResourceAsStream("sound/shot.mp3")) {
             if (inputStream == null) {
@@ -24,7 +23,6 @@ public class MP3Player {
         }
     }
     public static void emptyBullet() {
-        // ClassLoader를 사용하여 리소스 파일에 접근
         ClassLoader classLoader = MP3Player.class.getClassLoader();
         try (InputStream inputStream = classLoader.getResourceAsStream("sound/emptyBullet.mp3")) {
             if (inputStream == null) {
@@ -40,7 +38,6 @@ public class MP3Player {
     }
 
     public static void loadingBullet() {
-        // ClassLoader를 사용하여 리소스 파일에 접근
         ClassLoader classLoader = MP3Player.class.getClassLoader();
         try (InputStream inputStream = classLoader.getResourceAsStream("sound/loadingBullet.mp3")) {
             if (inputStream == null) {
