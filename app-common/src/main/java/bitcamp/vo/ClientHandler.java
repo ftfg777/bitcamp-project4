@@ -185,9 +185,11 @@ public class ClientHandler extends Thread{
             }
         } catch (IllegalStateException e) {
             flag = true;
+            System.exit(0);
             System.out.println("IllegalStateException 오류 발생");
         }catch (NoSuchElementException e){
             flag = true;
+            System.exit(0);
             System.out.println("NoSuchElementException 오류 발생");
         }
         catch (Exception e)
